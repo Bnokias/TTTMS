@@ -1,0 +1,66 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Employees";
+}
+<!-- Search row -->
+<div class="row mb-3">
+    <div class="col-md-6">
+        <input id="searchInput" type="text" class="form-control" placeholder="Search Employee">
+    </div>
+    <div class="col-md-6">
+        <button class="btn btn-dark" onclick="searchEmployees()">
+            <i class="bi bi-search"></i> Search
+        </button>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table id="employeeTable" class="table table-bordered table-condensed table-striped table-hover sortable">
+        @if (@Model.Employees.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">No Records found.</td>
+            </tr>
+        }
+        else
+        {
+            <thead>
+                <tr class="danger">
+                    <th data-defaultsign="_19"> Employee ID</th>
+                    <th data-defaultsign="AZ">Firstname</th>
+                    <th data-defaultsign="AZ">Lastname</th>
+                    <th data-defaultsign="AZ">Email</th>
+                    <th data-defaultsign="AZ">Job Title</th>
+                    <th data-firstsort="desc">Department</th>
+                    <th>Action</th> <!-- New column for action buttons -->
+                </tr>
+            </thead>
+            @foreach (var item in Model.Employees)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.Email</td>
+                    <td>@item.JobTitle</td>
+                    <td>@item.Department</td>
+                    <td>
+                        <!-- Pass the employee ID and 'true' for Edit mode -->
+                        <a href="#" onclick="editOrViewEmployee(@item.Id, true)">Edit</a> |
+                        <!-- Pass the employee ID and 'false' for View mode -->
+                        <a href="#" onclick="editOrViewEmployee(@item.Id, false)">View</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<!-- Your existing page content... -->
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- Include your external JavaScript file -->
+<script src="/js/search.js" asp-append-version="true"></script>

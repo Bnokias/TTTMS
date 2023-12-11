@@ -1,0 +1,37 @@
+﻿@page
+@model AssignMembersModel
+@{
+    ViewData["Title"] = "Assign Members";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <div>
+        <label for="employeeId" class="form-label">Select Employee:</label>
+        <select id="employeeId" name="employeeId" class="form-select">
+            @foreach (var employee in Model.Employees)
+            {
+                <option value="@employee.Id">@employee.FirstName @employee.LastName</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="projectId" class="form-label">Select Project:</label>
+        <select id="projectId" name="projectId" class="form-select">
+            @foreach (var project in Model.Projects)
+            {
+                <option value="@project.ProjectID">@project.ProjectName</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="assignedGroup" class=" form-label">Assigned Group:</label>
+        <input type="text" id="assignedGroup" name="assignedGroup" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Assign</button>
+    <br />
+</form>

@@ -1,0 +1,76 @@
+﻿@page
+@model TTTMS.Pages.TasksModel 
+
+@{
+
+    ViewData["Title"] = "Task";
+}
+
+<!-- Search row -->
+<div class="row mb-3">
+    <div class="col-md-3">
+        <button class="btn btn-primary" >
+            <i class="bi bi-search"></i> Add Task
+        </button>
+    </div>
+    <div class="col-md-6">
+        <input id="searchInput" type="text" class="form-control" placeholder="Search Employee">
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-dark" ">
+            <i class="bi bi-search"></i> Search
+        </button>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table id="employeeTable" class="table table-bordered table-condensed table-striped table-hover sortable">
+        @if (@Model.ETask.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">No Records found.</td>
+            </tr>
+        }
+        else
+        {
+            <thead>
+                <tr class="danger">
+                    <th data-defaultsign="_19"> Task ID</th>
+                    <th data-defaultsign="AZ">Project ID</th>
+                    <th data-defaultsign="AZ">Task Name</th>
+                    <th data-defaultsign="AZ">Task Description</th>
+                    <th data-defaultsign="AZ">Task Status</th>
+                    <th data-firstsort="desc">Duration</th>
+                    <th data-firstsort="desc">Overytime</th>
+                    <th>Action</th> <!-- New column for action buttons -->
+                </tr>
+            </thead>
+            @foreach (var item in Model.ETask)
+            {
+                <tr>
+                    <td>@item.TaskID</td>
+                    <td>@item.ProjectID</td>
+                    <td>@item.TaskName</td>
+                    <td>@item.TaskDescription</td>
+                    <td>@item.TaskStatus</td>
+                    <td>@item.TaskDuration</td>
+                    <td>@item.OverTime</td>
+                    <td>
+                        <!-- Pass the employee ID and 'true' for Edit mode -->
+                        <a href="#" onclick="editOrViewEmployee(@item.TaskID, true)">Edit</a> |
+                        <!-- Pass the employee ID and 'false' for View mode -->
+                        <a href="#" onclick="editOrViewEmployee(@item.TaskID, false)">View</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<!-- Your existing page content... -->
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- Include your external JavaScript file -->
+<script src="~/js/EditEmployee.js"></script>

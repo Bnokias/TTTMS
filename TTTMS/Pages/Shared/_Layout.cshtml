@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TTTMS</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyVn2SOp6ueN39KtC4dhUNJ6eE2Sz4VFXFa" crossorigin="anonymous">
+
+    <!-- Your custom styles -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TTTMS.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Side Drawer -->
+    <div id="sideMenu" class="closed">
+        <a href="#" class="close-btn" onclick="closeSideMenu()">×</a>
+        <br />
+        <a asp-area="" asp-page="/Reports" title="Dashboard">
+            <span style="font-size: 17px; color: Dodgerblue;">
+                <i class="fas fa-tachometer-alt"></i>
+            </span> Dashboard
+        </a>
+   
+        <a asp-area="" asp-page="/Projects" title="Projects">
+            <span style="font-size: 17px; color: Dodgerblue;">
+                <i class="fa-solid fa-project-diagram"></i>
+            </span> Projects
+        </a>
+        <a asp-area="" asp-page="/Tasks" title="Tasks"><i class="fas fa-tasks"></i> Tasks</a>
+        <a href="#" title="Timesheets"><i class="fas fa-clock"></i> Timesheets</a>
+        <a asp-area="" asp-page="/Reports" title="Reports"><i class="fas fa-chart-bar"></i> Reports</a>
+        <a asp-area="" asp-page="/Index" title="Employees"><i class="fas fa-users"></i> Employees</a>
+        <!-- Add more links as needed -->
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" style="display:none;">
+        <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="spinner-border" role="status">
+                <span class="sr-only"></span>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <header>
+                    <span id="hamburger" onclick="openSideMenu()" style="font-size: 21px;">☰</span>
+                </header>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="display-4" style="margin-top: 21px; font-size: 21px;">@ViewData["Title"]</h1>
+                <!-- Breadcrumb Navigation -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <footer class="border-top footer text-muted">
+                    <!-- ... (your existing footer content) ... -->
+                    <div class="container">
+                        &copy; 2023 - TTTMS - <a asp-area="" asp-page="/Privacy">Privacy</a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Your custom scripts -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Script for Side Drawer -->
+    <script src="~/js/LayoutController.js" asp-append-version="true"></script>
+
+    
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

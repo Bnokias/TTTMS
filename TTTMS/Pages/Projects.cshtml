@@ -1,0 +1,80 @@
+﻿@page
+@model TTTMS.Pages.ProjectsModel
+@{
+    ViewData["Title"] = "Projects";
+}
+
+
+<!-- Search row -->
+<div class="row mb-3">
+    <div class="col-md-3">
+        <a asp-page="/AddProject" class="btn btn-dark">
+            <i class="bi bi-search"></i> Add Project
+        </a>
+    </div>
+    <div class="col-md-6">
+        <input type="text" class="form-control" placeholder="Search Project">
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary" onclick="searchProjects()">
+            <i class="bi bi-dark"></i> Search
+        </button>
+    </div>
+</div>
+
+
+
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover sortable">
+        @if (@Model.Project.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">No Records found.</td>
+            </tr>
+        }
+        else
+        {
+            <thead>
+                <tr class="danger">
+                    <th data-defaultsign="_19"> Project ID</th>
+                    <th data-defaultsign="AZ">Project Name</th>
+                    <th data-defaultsign="AZ">Project Description</th>
+                    <th data-defaultsign="AZ">Start Date</th>
+                    <th data-defaultsign="AZ">End Date</th>
+                    <th data-firstsort="desc">Status</th>
+                    <th data-firstsort="desc">Priority</th>
+                    <th data-defaultsign="AZ">Project Manager</th>
+                    <th>Action</th> <!-- New column for action buttons -->
+                </tr>
+            </thead>
+            @foreach (var item in Model.Project)
+            {
+                <tr>
+                    <td>@item.ProjectID</td>
+                    <td>@item.ProjectName</td>
+                    <td>@item.ProjectDescription</td>
+                    <td>@item.StartDate</td>
+                    <td>@item.EndDate</td>
+                    <td>@item.Status</td>
+                    <td>@item.Priority</td>
+                    <td>@item.ProjectManager</td>
+                    <td>
+                        <!-- Pass the employee ID and 'true' for Edit mode -->
+                        <a href="#" onclick="editOrViewEmployee(@item.ProjectID, true)">Edit</a> |
+                        <!-- Pass the employee ID and 'false' for View mode -->
+                        <a href="#" onclick="editOrViewEmployee(@item.ProjectID, false)">View</a> |
+                        <a asp-page="/AssignMembers">Assign </a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<!-- Your existing page content... -->
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
